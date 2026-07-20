@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+body{
+   font-family: "Poppins", sans-serif;
+}
+@theme {
+
+  /* Backgrounds */
+
+  --color-bg: #090D11;
+  --color-surface: #11171D;
+  --color-card: #171E26;
+  --color-card-hover: #202833;
+
+  /* Brand */
+
+  --color-primary: #39E6D4;
+  --color-primary-hover: #23CFC0;
+  --color-secondary: #2FD7FF;
+
+  /* Text */
+
+  --color-heading: #F8FAFC;
+  --color-text: #98A6B3;
+  --color-muted: #6B7280;
+
+  /* Borders */
+
+  --color-border: #2C3540;
+  --color-input-border: #323D4A;
+
+  /* Status */
+
+  --color-success: #22C55E;
+  --color-danger: #EF4444;
+  --color-warning: #FACC15;
+
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+}
+
+.swiper-pagination-bullet {
+  background: #39E6D4;
+  opacity: 0.4;
+  border:2px solid white
+}
+
+.swiper-pagination-bullet-active {
+  background: #39E6D4;
+  opacity: 1;
+}
