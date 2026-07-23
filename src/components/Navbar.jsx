@@ -22,23 +22,35 @@ const Navbar = () => {
         </div>
 
         {/* Nav Links */}
-        <ul className="hidden md:flex items-center gap-10 text-sm font-medium text-text">
+        <ul className="hidden md:flex items-center gap-10 text-md font-medium text-text">
 
        <li>
-           <NavLink to="/home" className="cursor-pointer transition hover:text-primary">
+       <NavLink to="/home"  className={({ isActive }) =>
+  `cursor-pointer transition hover:text-primary ${
+    isActive ? "text-primary font-semibold" : "text-heading"
+  }`
+}>
             Home
           </NavLink>
 
        </li>
 
         <li>
-              <NavLink to="/shop" className="cursor-pointer transition hover:text-primary">
+              <NavLink to="/shop" className={({ isActive }) =>
+  `cursor-pointer transition hover:text-primary ${
+    isActive ? "text-primary font-semibold" : "text-heading"
+  }`
+}>
             Shop
           </NavLink>
         </li>
 
        <li>
-           <NavLink to="/about" className="cursor-pointer transition hover:text-primary">
+           <NavLink to="/about" className={({ isActive }) =>
+  `cursor-pointer transition hover:text-primary ${
+    isActive ? "text-primary font-semibold" : "text-heading"
+  }`
+}>
             About
           </NavLink>
 
@@ -64,12 +76,12 @@ const Navbar = () => {
           </div>
 
           {/* Cart */}
-          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border bg-card transition hover:border-primary hover:text-primary">
+          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border  border border-white bg-card transition hover:border-primary hover:text-primary text-primary">
             <ShoppingCart size={20} />
           </button>
 
           {/* Logout */}
-          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border bg-card transition hover:border-red-500 hover:text-red-500">
+          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border bg-card transition  text-white border-white   hover:border-red-500 hover:text-red-500  ">
             <LogOut size={20} />
           </button>
 

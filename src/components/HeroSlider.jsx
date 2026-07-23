@@ -1,11 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useNavigate } from "react-router";
 import { MoveRight } from 'lucide-react';
 import heroImg2  from "../assets/banner1.jpg"
 import heroImg3  from "../assets/banner2.jpg"
 import heroImg4 from "../assets/electricity.png"
 import heroImg5 from "../assets/appliances.jpg"
 const HeroSlider = () => {
+let navigate=useNavigate()
+
   return (
 <Swiper
   className="h-[500px] cursor-pointer mb-10"
@@ -13,13 +16,16 @@ const HeroSlider = () => {
   navigation
   pagination={{ clickable: true }}
   autoplay={{
-    delay: 4000,
+    delay: 3000,
     disableOnInteraction: false,
   }}
   loop={true}
 >
  <SwiperSlide>
   <div
+ onClick={()=>{
+  navigate("/shop")
+ }}
     className="relative flex h-[500px] items-center overflow-hidden rounded-2xl border border-border bg-cover bg-left px-20"
     style={{
       backgroundImage: `url(${heroImg4})`,
@@ -53,11 +59,16 @@ const HeroSlider = () => {
 
       {/* Buttons */}
       <div className="flex items-center gap-4 pt-2">
-        <button className="rounded-full bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
+        <button className="rounded-full cursor-pointer bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
           Shop Now
         </button>
 
-        <button className="flex items-center gap-3 rounded-full border border-white/30 px-8 py-3 font-semibold text-white transition hover:border-primary hover:text-primary">
+        <button 
+           onClick={()=>{
+  navigate("/shop")
+ }}
+        
+        className="flex items-center gap-3 cursor-pointer rounded-full border border-white/30 px-8 py-3 font-semibold text-white transition hover:border-primary hover:text-primary">
           View All Products
           <MoveRight size={20} />
         </button>
@@ -69,6 +80,9 @@ const HeroSlider = () => {
 
 <SwiperSlide>
   <div
+   onClick={()=>{
+  navigate("/category/men's clothing")
+ }}
     className="relative h-[500px]  rounded-2xl border border-border bg-cover bg-center bg-no-repeat px-20"
     style={{
       backgroundImage: `url(${heroImg2})`,
@@ -104,7 +118,7 @@ const HeroSlider = () => {
         </p>
 
         {/* Button */}
-        <button className="rounded-full bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
+        <button className="rounded-full cursor-pointer  bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
           Shop Now
         </button>
 
@@ -115,12 +129,15 @@ const HeroSlider = () => {
 
   <SwiperSlide>
   <div
+   onClick={()=>{
+  navigate("/category/women's clothing")
+ }}
     className="relative h-[500px] overflow-hidden  rounded-2xl border border-border bg-cover bg-center bg-no-repeat"
     style={{
       backgroundImage: `url(${heroImg3})`,
     }}
   >
-    <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/35 to-transparent"></div>
+    <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/35 to-transparent"></div>
 
     <div className="relative z-10 flex h-full items-center px-20">
       <div className="max-w-xl space-y-6">
@@ -141,7 +158,7 @@ const HeroSlider = () => {
           collections crafted exclusively for women.
         </p>
 
-        <button className="rounded-full bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
+        <button className="rounded-full cursor-pointer bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
           Shop Now
         </button>
 
@@ -152,6 +169,9 @@ const HeroSlider = () => {
 
 <SwiperSlide>
   <div
+     onClick={()=>{
+  navigate("/category/electronics")
+ }}
     className="relative h-[500px] overflow-hidden  rounded-2xl border border-border bg-cover bg-center bg-no-repeat"
     style={{
       backgroundImage: `url(${heroImg5})`,
@@ -183,7 +203,7 @@ const HeroSlider = () => {
         </p>
 
         {/* Button */}
-        <button className="rounded-full bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
+        <button className="rounded-full cursor-pointer bg-primary px-8 py-3 font-semibold text-white transition hover:bg-primary-hover">
           Shop Electronics
         </button>
 

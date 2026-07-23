@@ -26,6 +26,8 @@ let isSignedIn=signedIn.find((user)=> user.email===data.email && user.password==
 if(!isSignedIn){
 
 toast.error("Invalid email or password");
+    reset()
+
   return ;
 
 }

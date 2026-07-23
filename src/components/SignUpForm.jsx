@@ -36,9 +36,6 @@ const[registered,setRegistered]=useState(()=>JSON.parse(localStorage.getItem("re
     toast.error("user already exists")
     return 
   }
-
-
-
  const {confirmPassword, ...userData} = data;
 
  let gotoRegister = [...registered, userData];

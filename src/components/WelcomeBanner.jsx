@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MoveRight } from 'lucide-react';
 import { useNavigate } from "react-router";
 const WelcomeBanner = () => {
-
+const [greet,setGreet]=useState("")
     let navigate=useNavigate();
+let currUser=JSON.parse(localStorage.getItem("currentUser"))
 
+function getGreet(){
+let hours = new Date().getHours();
+
+if (hours >= 5 && hours < 12) {
+  setGreet("Good Morning");
+} 
+else if (hours >= 12 && hours < 17) {
+  setGreet("Good Afternoon");
+} 
+else if (hours >= 17 && hours < 21) {
+  setGreet("Good Evening");
+} 
+else {
+  setGreet("Good Night");
+}
+}
+useEffect(()=>{
+  getGreet()
+
+},[])
 
 
   return (
@@ -13,8 +34,8 @@ const WelcomeBanner = () => {
       {/* Left */}
       <div className="flex flex-col gap-4 sm:text-start text-center">
 
-        <span className="w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-          👋 Good Evening
+        <span className="w-fit tracking-wide rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+          👋 {greet}
         </span>
 
         <div>
@@ -22,9 +43,8 @@ const WelcomeBanner = () => {
             Welcome back,
           </h2>
 
-          <h2 className="mt-1 text-3xl font-extrabold text-primary sm:text-4xl">
-            Aryan!
-          </h2>
+          <h2 className="mt-1 text-2xl font-extrabold text-primary sm:text-4xl">
+{currUser.name}! </h2>
         </div>
 
         <p className="max-w-2xl text-base leading-7 text-text">

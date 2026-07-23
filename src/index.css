@@ -57,3 +57,50 @@ body{
   background: #39E6D4;
   opacity: 1;
 }
+
+li{
+  position:relative;
+  display: flex ;
+justify-content: center;
+align-items: center;
+
+}
+nav li::before{
+content:"";
+height:1px;
+width:0%;
+position:absolute;
+background:#39E6D4;
+transition: 0.3s ease ;
+bottom:-2px;
+
+}nav li:hover::before{
+  width:100%;
+
+}
+
+/* scroll bar  */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111827; /* ya apna bg color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #39e6d584; /* primary color */
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2fd1c0;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #39e6d4 #111827;
+}

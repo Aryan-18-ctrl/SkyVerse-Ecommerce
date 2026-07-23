@@ -3,7 +3,7 @@ import jewellery from "../assets/categories/jewellery.jpg";
 import men from "../assets/categories/men.jpg";
 import women from "../assets/categories/women.jpg";
 
-
+import { useNavigate } from "react-router";
 const categoryData = [
   {
     id: 1,
@@ -40,6 +40,8 @@ const categoryData = [
 
 
 const Categories = () => {
+
+  let navigate=useNavigate()
 
   return (
     <section className="flex flex-col gap-6">
@@ -84,6 +86,10 @@ const Categories = () => {
                hover:border-primary
                 hover:shadow-[0_18px_35px_rgba(57,230,212,0.20)]
               "
+
+          onClick={()=>{
+navigate(`/category/${elem.category}`)
+              }}
             >
               <div
                 className="

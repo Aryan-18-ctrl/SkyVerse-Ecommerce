@@ -1,11 +1,100 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Search,
   SlidersHorizontal,
   ChevronDown,
+  CircleGauge,
 } from "lucide-react";
+import { MyContext } from "../Context/EcomContext";
 
-const ShopFilterSearch = ({ categories = [] }) => {
+
+
+const ShopFilterSearch = () => {
+let{product,setFilteredProducts}=useContext(MyContext)
+const [searchProducts,setSearchProducts]=useState("");
+const [selectedCategory, setSelectedCategory] = useState("");
+const[sortBy,setSortBy]=useState("")
+
+
+// filter functionality
+
+function applyFilter(search , category , sort){
+let data=[...product]
+
+
+// search part---
+
+if(search){
+  data = data.filter((item) => item.title.toLowerCase().includes(search.toLowerCase().trim()));
+}
+
+// category part
+
+
+if(category){
+  data=data.filter((elem)=> elem.category===category
+  )
+}
+
+// sort part
+
+if(sort==='high'){
+  data.sort((a,b)=>b.price-a.price)
+}
+else if(sort==='low'){
+data.sort((a,b)=>a.price-b.price)
+}
+else if(sort==="rating"){
+  data.sort((a,b)=>b.rating.rate-a.rating.rate)
+
+}
+
+
+setFilteredProducts(data)
+
+
+}
+
+
+//  search ----
+function handleChange(e) {
+  let value=e.target.value
+  setSearchProducts(value);
+applyFilter(value,selectedCategory,sortBy)
+ 
+}
+const uniqueCategory = [...new Set(product.map((cat) => cat.category))];
+
+
+// filter----
+
+function filterCategories(e){
+  if (e.target.value === "") {
+  setFilteredProducts(product);
+  return;
+
+}
+  const value = e.target.value;
+
+  setSelectedCategory(value);
+applyFilter(searchProducts,value,sortBy)
+
+
+}
+
+// ---sort---
+
+function handleSort(e){
+
+  let value=e.target.value
+  setSortBy(value)
+
+  applyFilter(searchProducts,selectedCategory,value)
+
+
+}
+
+
   return (
     <div
       className="
@@ -32,9 +121,14 @@ const ShopFilterSearch = ({ categories = [] }) => {
           max-w-[550px]
         "
       >
-        <Search size={20} className="text-text" />
-
+        <Search size={20}
+        
+        
+        className="text-text" />
         <input
+        
+value={searchProducts}
+   onChange={handleChange}
           type="text"
           placeholder="Search products..."
           className="
@@ -66,6 +160,8 @@ const ShopFilterSearch = ({ categories = [] }) => {
           />
 
           <select
+          onChange={filterCategories}
+value={selectedCategory}
             className="
               appearance-none
               cursor-pointer
@@ -82,13 +178,13 @@ const ShopFilterSearch = ({ categories = [] }) => {
               sm:w-56
             "
           >
-            <option value="">All Categories</option>
-
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
+            <option  value="">All Categories</option>
+{
+  uniqueCategory.map((elem,idx)=>{
+    return <option key={idx} value={elem}>{elem}</option>
+  })
+}
+            
           </select>
 
           <ChevronDown
@@ -107,7 +203,8 @@ const ShopFilterSearch = ({ categories = [] }) => {
         {/* Sort */}
         <div className="relative ">
 
-          <select
+          <select 
+          onChange={handleSort}
             className="
               appearance-none
               rounded-xl
@@ -122,13 +219,17 @@ const ShopFilterSearch = ({ categories = [] }) => {
               transition
               focus:border-primary
               sm:w-52
+ 
+  
             "
           >
-            <option value="">Sort By</option>
-            <option value="low">Price: Low to High</option>
-            <option value="high">Price: High to Low</option>
-            <option value="rating">Top Rated</option>
-          </select>
+  <option value="" disabled> Sort By</option> 
+  <option value="">Recommended</option>
+   
+          <option value="low">Price: Low to High</option>
+    <option value="high">Price: High to Low</option>
+      <option value="rating">Top Rated</option>
+    </select>
 
           <ChevronDown
             size={18}

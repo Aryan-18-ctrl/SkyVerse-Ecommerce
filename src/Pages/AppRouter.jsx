@@ -8,17 +8,24 @@ import Navbar from '../components/Navbar'
 import Shop from './Shop'
 import About from './About'
 import CategoryBased from './CategoryBased'
+import ProtectedRoute from './ProtectedRoute'
+import ProductDetail from './ProductDetail'
 const AppRouter = () => {
   return (
       <Routes>
     <Route path="/" element={<SignIn/>}/>
     <Route path="/register" element={<Signup/>}/>
- <Route element={<MainRouter/>}>
+
+<Route element={<ProtectedRoute/>}>
+       <Route element={<MainRouter/>}>
     <Route path="/home" element={<Home/>}/>
     <Route path="/shop" element={<Shop/>}/>
     <Route path="/about" element={<About/>}/>
-<Route path="/category/" element={<CategoryBased/>}/>
+        <Route path="/details/:id" element={<ProductDetail/>}/>
+
+<Route path="/category/:categoryName" element={<CategoryBased/>}/>
  </Route>
+</Route>
   </Routes>
   )
 }

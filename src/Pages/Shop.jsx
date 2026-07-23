@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ShopFilterSearch from '../components/ShopFilterSearch'
 import Products from '../components/Products'
-
+import { MyContext } from '../Context/EcomContext'
+import { useContext } from 'react'
 const Shop = () => {
+const {product}=useContext(MyContext)
+
   return (
     <div className='px-4 py-6 sm:px-6 sm:py-10 lg:px-10 flex flex-col gap-8'>
        
@@ -12,7 +15,7 @@ const Shop = () => {
         </h2>
 
         <p className="mt-2 text-text">
-50 products found  </p>
+{product.length} products found  </p>
       </div>
 <ShopFilterSearch/>
 <Products/>
