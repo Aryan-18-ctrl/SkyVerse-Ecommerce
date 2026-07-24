@@ -75,7 +75,7 @@ return cartItems.reduce((accum,elem)=>{
           ) : (
             <div className="h-full flex flex-col justify-center items-center text-center">
               <ShoppingBag size={70} className="text-gray-300" />
-              <h3 className="text-xl font-semibold mt-4">
+              <h3 className="text-xl font-semibold mt-4 text-white">
                 Your Cart is Empty
               </h3>
               <p className="text-gray-500 mt-2">
@@ -87,8 +87,8 @@ return cartItems.reduce((accum,elem)=>{
 
         {/* Footer */}
         {cartItems.length > 0 && (
-          <div className="border-t p-5 space-y-4">
-            <div className="flex justify-between text-lg font-semibold">
+          <div className="border border-t-border p-5 space-y-4">
+            <div className="flex justify-between text-lg font-semibold text-white">
               <span>Total</span>
               <span className="text-primary">
                 Rs {totalPrice.toFixed(2)}

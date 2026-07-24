@@ -139,6 +139,8 @@ function handleNext(){
         cursor-pointer
         px-4
         py-3
+                text-white
+
         transition
         hover:bg-primary
         hover:text-bg
@@ -163,6 +165,7 @@ function handleNext(){
         cursor-pointer
         px-4
         py-3
+        text-white
         transition
         hover:bg-primary
         hover:text-bg
