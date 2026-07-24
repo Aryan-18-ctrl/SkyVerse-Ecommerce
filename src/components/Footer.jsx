@@ -120,7 +120,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="#"
+              href="https://github.com/Aryan-18-ctrl/SkyVerse-Ecommerce"
               className="rounded-xl border border-border p-3 text-text transition hover:border-primary hover:text-primary"
             >
               <FaGithub size={18} />
