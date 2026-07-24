@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ShopFilterSearch from '../components/ShopFilterSearch'
 import Products from '../components/Products'
 import { MyContext } from '../Context/EcomContext'
 import { useContext } from 'react'
 const Shop = () => {
-const {product}=useContext(MyContext)
+const {product,getProductData}=useContext(MyContext)
+
+
+useEffect(()=>{
+  getProductData()
+},[])
 
   return (
     <div className='px-4 py-6 sm:px-6 sm:py-10 lg:px-10 flex flex-col gap-8'>

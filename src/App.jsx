@@ -11,7 +11,7 @@ import PublicRoute from './Routes/PublicRoute';
 import Cart from './Pages/Cart';
 const App = () => {
   return (
-<div className='min-h-screen bg-bg'>
+<div className='min-h-screen bg-bg '>
 {/* routees */}
 <AppRouter/>
 

@@ -8,6 +8,8 @@ import { NavLink } from "react-router";
 import { MyContext } from '../Context/EcomContext';
 const ProductDetail = () => {
 
+  
+ 
 let {singleProdData,setSingleProdData}=useContext(MyContext)
 
   const { id } = useParams();

@@ -1,4 +1,4 @@
-import React  from "react";
+import React, { useState }  from "react";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router";
 import { useContext } from "react";
@@ -17,16 +17,28 @@ import {
 } from "lucide-react";
 
 const SingleProductDetail = ({id}) => {
-let {singleProdData,addToCart}=useContext(MyContext)
-    
+let {
+  singleProdData,
+  addToCart,
+  itemIncre,
+  itemDeccre,
+  cartItems
+}=useContext(MyContext)    
 
 
 
   let navigate=useNavigate()
 
-
+const[heart,setHeart]=useState(false)
 
 //   prev   next  
+let isInCart = cartItems.some(
+  (item)=>item.id === singleProdData.id
+);
+
+let currentQty = cartItems.find(
+  (item)=>item.id === singleProdData.id
+)?.quantity || 0;
 
 function handleNext(){
   if (Number(id) < 20) {
@@ -110,72 +122,111 @@ function handleNext(){
           <p className="mt-4 leading-7 text-text">
             {singleProdData.description}
           </p>
+{/* Quantity */}
+<div className="mt-6 flex items-center gap-5">
+  <p className="font-semibold text-heading">
+    Quantity
+  </p>
 
-          {/* Quantity */}
-          <div className="mt-6 flex items-center gap-5">
-            <p className="font-semibold text-heading">
-              Quantity
-            </p>
+  <div className="flex items-center overflow-hidden rounded-xl border border-border">
 
-            <div className="flex items-center overflow-hidden rounded-xl border border-border">
-              <button
-                className="cursor-pointer px-4 py-3 transition hover:bg-primary hover:text-bg"
-              >
-                <Minus size={16} />
-              </button>
+    <button
+      onClick={(e)=>{
+        itemDeccre(e,singleProdData)
+      }}
+      disabled={!isInCart}
+      className="
+        cursor-pointer
+        px-4
+        py-3
+        transition
+        hover:bg-primary
+        hover:text-bg
+        disabled:opacity-40
+      "
+    >
+      <Minus size={16}/>
+    </button>
 
-              <span className="px-5 font-semibold text-heading">
-1
-              </span>
 
-              <button
-               
-                className="cursor-pointer px-4 py-3 transition hover:bg-primary hover:text-bg"
-              >
-                <Plus size={16} />
-              </button>
-            </div>
-          </div>
+    <span className="px-5 font-semibold text-heading">
+      {currentQty || 0}
+    </span>
 
-          {/* Buttons */}
-          <div  className="mt-6 flex flex-wrap gap-3">
-            <button
-            onClick={(e)=>
-              addToCart(e,singleProdData)
-            }
-              className="
-                flex
-                items-center
-                gap-2
-                rounded-xl
-                bg-primary
-                px-7
-                py-3
-                font-semibold
-                text-bg
-                transition
-                 cursor-pointer
-                hover:bg-primary-hover
-              "
-            >
-              <ShoppingCart size={18} />
-              Add to Cart
-            </button>
 
-            <button
-              className="
-                rounded-xl
-                border
-                border-border
-                p-3
-                transition
-                hover:border-primary
-                hover:text-primary
-              "
-            >
-              <Heart size={20} />
-            </button>
-          </div>
+    <button
+      onClick={(e)=>{
+        itemIncre(e,singleProdData)
+      }}
+      disabled={!isInCart}
+      className="
+        cursor-pointer
+        px-4
+        py-3
+        transition
+        hover:bg-primary
+        hover:text-bg
+        disabled:opacity-40
+      "
+    >
+      <Plus size={16}/>
+    </button>
+
+  </div>
+</div>
+{/* Buttons */}
+<div className="mt-6 flex flex-wrap gap-3">
+
+{
+!isInCart && (
+<button
+onClick={(e)=>{
+  addToCart(e,singleProdData)
+}}
+className="
+flex
+items-center
+gap-2
+rounded-xl
+bg-primary
+px-7
+py-3
+font-semibold
+text-bg
+transition
+cursor-pointer
+hover:bg-primary-hover
+"
+>
+<ShoppingCart size={18}/>
+Add to Cart
+</button>
+)
+}
+
+
+<button
+onClick={()=>{
+setHeart(prev=>!prev)
+}}
+className="
+rounded-xl
+border
+border-border
+p-3
+cursor-pointer
+transition
+hover:border-primary
+hover:text-primary
+"
+>
+<Heart 
+style={{color:heart?"red":"white"}} 
+size={20}
+/>
+</button>
+
+</div>
 <div className="mt-8 flex gap-4">
   <button
   onClick={handlePrev}

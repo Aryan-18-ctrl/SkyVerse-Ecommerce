@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { MoveRight } from 'lucide-react';
 import heroImg2  from "../assets/banner1.jpg"
 import heroImg3  from "../assets/banner2.jpg"
-import heroImg4 from "../assets/electricity.png"
+import heroImg4 from "../assets/electricity.jpg"
 import heroImg5 from "../assets/appliances.jpg"
 const HeroSlider = () => {
 let navigate=useNavigate()

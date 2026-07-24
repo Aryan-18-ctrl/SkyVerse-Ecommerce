@@ -158,7 +158,7 @@ const AboutHero = () => {
           ">
 
             <img
-              src="/src/assets/elec.jpg"
+              src="/src/assets/about.jpg"
               alt="People shopping online"
               className="
                 h-[500px]

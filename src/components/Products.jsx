@@ -7,29 +7,9 @@ import ProductCard from './ProductCard'
 const Products = () => {
 let{cartItems}=useContext(MyContext)
 
-const[isLoading,setIsLoading]=useState(false)
 
-let {setProduct,filteredProducts,setFilteredProducts}=useContext(MyContext)
- let getProductData= async ()=>{
-    setIsLoading(true)
+let {filteredProducts,getProductData,isLoading}=useContext(MyContext)
 
-try{
- let response=await axios.get(
-    "https://fakestoreapi.com/products")
-
-setProduct(response.data)
-setFilteredProducts(response.data)
-}
-catch(error){
-    console.log("error in fetching",error)
-
-}
-finally{
-        setIsLoading(false)
-
-}
-
- }
 
 useEffect(()=>{
     getProductData()
@@ -40,6 +20,7 @@ useEffect(()=>{
 if(isLoading){
     return <Loader/>
 }
+
 
 return (
     <div className="grid lg:grid-cols-4 sm:grid-cols-3 gap-6">

@@ -2,13 +2,9 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { MyContext } from '../Context/EcomContext'
 const ProductCard = ({elem,isInCart}) => {
-let{addToCart}=useContext(MyContext)
+let{addToCart,itemIncre,itemDeccre}=useContext(MyContext)
 
 let navigate=useNavigate()
-
-console.log(isInCart)
-
-
 
   return (
     <div
@@ -136,16 +132,22 @@ navigate(`/details/${elem.id}`)
   {isInCart ? (
     <div className="flex items-center justify-between border border-primary rounded-xl overflow-hidden">
       <button
+      onClick={(e)=>{
+      itemDeccre(e,elem)
+      }}
         className="w-12 py-3 text-xl font-bold text-primary hover:bg-primary/10 transition cursor-pointer"
       >
         −
       </button>
 
       <span className="font-semibold text-lg text-primary">
-        2
+        {isInCart.quantity}
       </span>
 
       <button
+      onClick={(e)=>{
+        itemIncre(e,elem)
+      }}
         className="w-12 py-3 text-xl font-bold text-primary hover:bg-primary/10 transition cursor-pointer"
       >
         +

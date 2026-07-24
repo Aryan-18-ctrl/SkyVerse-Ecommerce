@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { X, ShoppingBag } from "lucide-react";
 import { MyContext } from "../Context/EcomContext";
 import CartCard from "../components/CartCart";
+import { toast } from "react-hot-toast";
 const Cart = () => {
   const {
     cartItems,
@@ -9,8 +10,26 @@ const Cart = () => {
     isCartOpen,
     setIsCartOpen,
   } = useContext(MyContext);
-console.log(cartItems)
-  const total = cartItems.reduce((acc, item) => acc + item.price, 0);
+
+
+function handleDeleteCartItems(item){
+  let result=cartItems.filter((elem)=>{
+    return elem.id!==item.id
+  })
+setCartItems(result)
+localStorage.setItem("cartData",JSON.stringify(result))
+toast.error("Item deleted from cart")
+}
+
+let totalPrice=useMemo(()=>{
+return cartItems.reduce((accum,elem)=>{
+    return accum + (elem.price * elem.quantity * 85);
+},0)
+
+}
+,
+[cartItems])
+
 
   return (
     <>
@@ -51,7 +70,7 @@ console.log(cartItems)
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {cartItems.length > 0 ? (
             cartItems.map((elem) => (
-              <CartCard key={elem.id} item={elem} />
+              <CartCard key={elem.id} item={elem} handleDeleteCartItems={handleDeleteCartItems}/>
             ))
           ) : (
             <div className="h-full flex flex-col justify-center items-center text-center">
@@ -72,11 +91,13 @@ console.log(cartItems)
             <div className="flex justify-between text-lg font-semibold">
               <span>Total</span>
               <span className="text-primary">
-                ${total.toFixed(2)}
+                Rs {totalPrice.toFixed(2)}
               </span>
             </div>
 
-            <button className="w-full bg-primary text-black font-semibold py-3 rounded-xl hover:opacity-90 transition">
+            <button onClick={()=>{
+              toast.success("order placed")
+            }} className="w-full bg-primary text-black font-semibold py-3 rounded-xl hover:opacity-90 transition">
               Proceed to Checkout
             </button>
           </div>

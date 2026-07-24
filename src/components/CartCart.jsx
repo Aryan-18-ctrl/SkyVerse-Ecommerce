@@ -1,7 +1,13 @@
 import React from "react";
 import { Trash2, Plus, Minus } from "lucide-react";
+import { useContext } from "react";
+import { MyContext } from "../Context/EcomContext";
+const CartCard = ({ item,handleDeleteCartItems }) => {
 
-const CartCard = ({ item }) => {
+
+let{itemIncre,itemDeccre}=useContext(MyContext)
+
+
   return (
     <div className="flex gap-4 p-4 border rounded-xl bg-card shadow-sm hover:shadow-md transition-all">
       {/* Product Image */}
@@ -34,18 +40,23 @@ const CartCard = ({ item }) => {
 
         <div className="flex justify-between items-center mt-3">
           <p className="text-xl font-bold text-primary">
-            ${item.price}
+              Rs {Math.floor(item.price*85)*item.quantity}
           </p>
 
           {/* Quantity */}
-          <div className="flex items-center gap-2 border rounded-lg px-2 py-1">
-            <button className="hover:text-primary">
+          <div className="flex items-center gap-2 border rounded-lg px-2 py-1 text-white">
+            <button onClick={(e)=>{
+              itemDeccre(e,item)
+            }} className="hover:text-primary cursor-pointer">
               <Minus size={16} />
             </button>
 
-            <span className="font-semibold">1</span>
+            <span className="font-semibold">{item.quantity}</span>
 
-            <button className="hover:text-primary">
+            <button
+            onClick={(e)=>{
+              itemIncre(e,item)
+            }}  className="hover:text-primary cursor-pointer">
               <Plus size={16} />
             </button>
           </div>
@@ -53,7 +64,11 @@ const CartCard = ({ item }) => {
       </div>
 
       {/* Delete */}
-      <button className="text-red-500 hover:text-red-600 self-start">
+      <button onClick={()=>{
+
+        handleDeleteCartItems(item)
+
+      }} className="text-red-500 hover:text-red-600 cursor-pointer self-start">
         <Trash2 size={18} />
       </button>
     </div>

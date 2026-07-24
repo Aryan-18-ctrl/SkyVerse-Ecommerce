@@ -3,97 +3,74 @@ import {
   Search,
   SlidersHorizontal,
   ChevronDown,
-  CircleGauge,
 } from "lucide-react";
 import { MyContext } from "../Context/EcomContext";
 
-
-
 const ShopFilterSearch = () => {
-let{product,setFilteredProducts}=useContext(MyContext)
-const [searchProducts,setSearchProducts]=useState("");
-const [selectedCategory, setSelectedCategory] = useState("");
-const[sortBy,setSortBy]=useState("")
+  const { product, setFilteredProducts } = useContext(MyContext);
 
+  const [searchProducts, setSearchProducts] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
-// filter functionality
+  // Filter Function
+  function applyFilter(search, category, sort) {
+    let data = [...product];
 
-function applyFilter(search , category , sort){
-let data=[...product]
+    // Search
+    if (search) {
+      data = data.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase().trim())
+      );
+    }
 
+    // Category
+    if (category) {
+      data = data.filter((item) => item.category === category);
+    }
 
-// search part---
+    // Sort
+    if (sort === "high") {
+      data.sort((a, b) => b.price - a.price);
+    } else if (sort === "low") {
+      data.sort((a, b) => a.price - b.price);
+    } else if (sort === "rating") {
+      data.sort((a, b) => b.rating.rate - a.rating.rate);
+    }
 
-if(search){
-  data = data.filter((item) => item.title.toLowerCase().includes(search.toLowerCase().trim()));
-}
+    setFilteredProducts(data);
+  }
 
-// category part
+  // Search
+  function handleChange(e) {
+    const value = e.target.value;
+    setSearchProducts(value);
+    applyFilter(value, selectedCategory, sortBy);
+  }
 
+  // Categories
+  const uniqueCategory = [...new Set(product.map((item) => item.category))];
 
-if(category){
-  data=data.filter((elem)=> elem.category===category
-  )
-}
+  function filterCategories(e) {
+    const value = e.target.value;
 
-// sort part
+    setSelectedCategory(value);
 
-if(sort==='high'){
-  data.sort((a,b)=>b.price-a.price)
-}
-else if(sort==='low'){
-data.sort((a,b)=>a.price-b.price)
-}
-else if(sort==="rating"){
-  data.sort((a,b)=>b.rating.rate-a.rating.rate)
+    if (value === "") {
+      applyFilter(searchProducts, "", sortBy);
+      return;
+    }
 
-}
+    applyFilter(searchProducts, value, sortBy);
+  }
 
+  // Sort
+  function handleSort(e) {
+    const value = e.target.value;
+    setSortBy(value);
 
-setFilteredProducts(data)
-
-
-}
-
-
-//  search ----
-function handleChange(e) {
-  let value=e.target.value
-  setSearchProducts(value);
-applyFilter(value,selectedCategory,sortBy)
- 
-}
-const uniqueCategory = [...new Set(product.map((cat) => cat.category))];
-
-
-// filter----
-
-function filterCategories(e){
-  if (e.target.value === "") {
-  setFilteredProducts(product);
-  return;
-
-}
-  const value = e.target.value;
-
-  setSelectedCategory(value);
-applyFilter(searchProducts,value,sortBy)
-
-
-}
-
-// ---sort---
-
-function handleSort(e){
-
-  let value=e.target.value
-  setSortBy(value)
-
-  applyFilter(searchProducts,selectedCategory,value)
-
-
-}
-
+    applyFilter(searchProducts, selectedCategory, value);
+  }
 
   return (
     <div
@@ -118,18 +95,15 @@ function handleSort(e){
           px-4 py-3
           transition
           focus-within:border-primary
-          max-w-[550px]
+          md:max-w-[550px]
         "
       >
-        <Search size={20}
-        
-        
-        className="text-text" />
+        <Search size={20} className="text-text shrink-0" />
+
         <input
-        
-value={searchProducts}
-   onChange={handleChange}
           type="text"
+          value={searchProducts}
+          onChange={handleChange}
           placeholder="Search products..."
           className="
             w-full
@@ -142,11 +116,9 @@ value={searchProducts}
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col gap-3 sm:flex-row">
-
+      <div className="flex w-full flex-col gap-3 sm:flex-row sm:w-auto">
         {/* Category */}
-        <div className="relative">
-
+        <div className="relative w-full sm:w-auto">
           <SlidersHorizontal
             size={18}
             className="
@@ -156,13 +128,15 @@ value={searchProducts}
               -translate-y-1/2
               text-text
               pointer-events-none
+              shrink-0
             "
           />
 
           <select
-          onChange={filterCategories}
-value={selectedCategory}
+            value={selectedCategory}
+            onChange={filterCategories}
             className="
+              w-full
               appearance-none
               cursor-pointer
               rounded-xl
@@ -178,13 +152,13 @@ value={selectedCategory}
               sm:w-56
             "
           >
-            <option  value="">All Categories</option>
-{
-  uniqueCategory.map((elem,idx)=>{
-    return <option key={idx} value={elem}>{elem}</option>
-  })
-}
-            
+            <option value="">All Categories</option>
+
+            {uniqueCategory.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
 
           <ChevronDown
@@ -196,19 +170,21 @@ value={selectedCategory}
               -translate-y-1/2
               text-text
               pointer-events-none
+              shrink-0
             "
           />
         </div>
 
         {/* Sort */}
-        <div className="relative ">
-
-          <select 
-          onChange={handleSort}
+        <div className="relative w-full sm:w-auto">
+          <select
+            value={sortBy}
+            onChange={handleSort}
             className="
+              w-full
               appearance-none
-              rounded-xl
               cursor-pointer
+              rounded-xl
               border border-border
               bg-bg
               py-3
@@ -219,17 +195,13 @@ value={selectedCategory}
               transition
               focus:border-primary
               sm:w-52
- 
-  
             "
           >
-  <option value="" disabled> Sort By</option> 
-  <option value="">Recommended</option>
-   
-          <option value="low">Price: Low to High</option>
-    <option value="high">Price: High to Low</option>
-      <option value="rating">Top Rated</option>
-    </select>
+            <option value="">Recommended</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
 
           <ChevronDown
             size={18}
@@ -240,10 +212,10 @@ value={selectedCategory}
               -translate-y-1/2
               text-text
               pointer-events-none
+              shrink-0
             "
           />
         </div>
-
       </div>
     </div>
   );

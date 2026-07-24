@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
+
+import { useContext } from "react";
 import CategoryCard from "../components/CategoryCard";
 import Loader from "../components/Loader";
+import { MyContext } from "../Context/EcomContext";
 const CategoryBased = () => {
   const { categoryName } = useParams();
 const [isLoading,setIsloading]=useState(false)
   const [categoryData, setCategoryData] = useState([]);
-
+let  {cartItems}=useContext(MyContext)
 
  async function getCategoryData() {
   try {
@@ -72,11 +75,22 @@ const [isLoading,setIsloading]=useState(false)
       <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center">
 
 
-{/* category cards  */}
+{
+  categoryData.map((elem) => {
 
-        {categoryData.map((elem) => (
-       <CategoryCard key={elem.id} elem={elem}/>
-        ))}
+    const isInCart = cartItems.some(
+      (item) => item.id === elem.id
+    );
+
+    return (
+      <CategoryCard
+        key={elem.id}
+        elem={elem}
+        isInCart={isInCart}
+      />
+    );
+  })
+}
 
       </div>
     </section>
