@@ -30,6 +30,9 @@ const Navbar = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+
+
+  
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-bg/70 backdrop-blur-xl">
       {/* Navbar */}
@@ -40,7 +43,7 @@ const Navbar = () => {
             <ShoppingBag className="text-primary" size={24} />
           </div>
 
-          <h2 className="text-lg sm:text-xl font-bold text-heading">
+          <h2 className="text-lg sm:text-xl  font-bold text-heading">
             Shop<span className="text-primary">Verse</span>
           </h2>
         </div>
@@ -89,11 +92,11 @@ const Navbar = () => {
         {/* Right Side */}
         <div className="flex items-center gap-3 md:gap-5">
           {/* User */}
-<div className="hidden md:flex items-center gap-3 rounded-2xl border border-border bg-card px-3 py-2">            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-semibold text-bg">
+<div className="hidden md:flex items-center text-lg gap-3 rounded-2xl border border-border bg-card px-3 py-2">            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-semibold text-bg">
               {currUser?.name?.charAt(0).toUpperCase()}
             </div>
 
-            <p className="text-sm font-semibold text-heading">
+            <p className="text-sm font-semibold text-heading hidden lg:block">
               {currUser?.name}
             </p>
           </div>
@@ -119,7 +122,7 @@ const Navbar = () => {
  onClick={handleLogout}
  className="
  hidden
- lg:flex
+ md:flex
  h-11
  w-11
  cursor-pointer
@@ -136,6 +139,7 @@ const Navbar = () => {
  "
 >
             <LogOut size={20} />
+          
           </button>
 
           {/* Mobile Hamburger */}

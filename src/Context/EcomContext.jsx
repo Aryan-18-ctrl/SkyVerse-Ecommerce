@@ -16,11 +16,11 @@ const [cartItems,setCartItems] = useState(
 );
     const[isCartOpen,setIsCartOpen]=useState(false)
 const [isLoading,setIsLoading]=useState(false)
-
-
+let currUser=JSON.parse(localStorage.getItem("currentUser")
+)
 let addToCart=(e,elem)=>{
         e.stopPropagation(); 
-let updatedCart=[...cartItems,{...elem,quantity:1}]
+let updatedCart=[...cartItems,{...elem,quantity:1,name:currUser?.name||""}]
   setCartItems(updatedCart)
   localStorage.setItem("cartData",JSON.stringify(updatedCart))
 toast.success("Added to cart 🛒");
