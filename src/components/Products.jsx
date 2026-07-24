@@ -5,6 +5,7 @@ import { MyContext } from '../Context/EcomContext'
 import ProductCard from './ProductCard'
 
 const Products = () => {
+let{cartItems}=useContext(MyContext)
 
 const[isLoading,setIsLoading]=useState(false)
 
@@ -35,6 +36,7 @@ useEffect(()=>{
 
 },[])
 
+
 if(isLoading){
     return <Loader/>
 }
@@ -45,7 +47,10 @@ return (
 
 {
 filteredProducts?.map((elem)=>{
-        return <ProductCard elem={elem} key={elem.id}/>
+   let isInCart= cartItems.find((val)=>{
+      return  val.id===elem.id
+    })
+        return <ProductCard elem={elem} key={elem.id} isInCart={isInCart}/>
     })
 }
 

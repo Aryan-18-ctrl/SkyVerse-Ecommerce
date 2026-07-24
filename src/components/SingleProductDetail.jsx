@@ -17,8 +17,9 @@ import {
 } from "lucide-react";
 
 const SingleProductDetail = ({id}) => {
-let {singleProdData}=useContext(MyContext)
+let {singleProdData,addToCart}=useContext(MyContext)
     
+
 
 
   let navigate=useNavigate()
@@ -137,8 +138,11 @@ function handleNext(){
           </div>
 
           {/* Buttons */}
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div  className="mt-6 flex flex-wrap gap-3">
             <button
+            onClick={(e)=>
+              addToCart(e,singleProdData)
+            }
               className="
                 flex
                 items-center

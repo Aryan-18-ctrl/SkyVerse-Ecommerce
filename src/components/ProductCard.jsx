@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router'
-const ProductCard = ({elem}) => {
+import { MyContext } from '../Context/EcomContext'
+const ProductCard = ({elem,isInCart}) => {
+let{addToCart}=useContext(MyContext)
 
 let navigate=useNavigate()
 
+console.log(isInCart)
+
+
+
   return (
     <div
-    onClick={()=>{
+   
+ onClick={()=>{
 navigate(`/details/${elem.id}`)
     }}
-
   className="
     group
     overflow-hidden
@@ -126,25 +132,49 @@ navigate(`/details/${elem.id}`)
         View Details
       </button>
 
+   <div className="flex-1">
+  {isInCart ? (
+    <div className="flex items-center justify-between border border-primary rounded-xl overflow-hidden">
       <button
-        className="
-          flex-1
-         cursor-pointer
-
-          rounded-xl
-          border
-          border-primary 
-          text-primary
-          py-3
-          font-semibold
-          transition
-        bg-primary/15
-          hover:text-white
-
-        "
+        className="w-12 py-3 text-xl font-bold text-primary hover:bg-primary/10 transition cursor-pointer"
       >
-        Add to Cart
+        −
       </button>
+
+      <span className="font-semibold text-lg text-primary">
+        2
+      </span>
+
+      <button
+        className="w-12 py-3 text-xl font-bold text-primary hover:bg-primary/10 transition cursor-pointer"
+      >
+        +
+      </button>
+    </div>
+  ) : (
+    <button
+    onClick={(e)=>{
+      addToCart(e,elem)
+    }}
+      className="
+        w-full
+        cursor-pointer
+        rounded-xl
+        border
+        border-primary
+        bg-primary/15
+        text-primary
+        py-3
+        font-semibold
+        transition
+        hover:bg-primary
+        hover:text-white
+      "
+    >
+      Add to Cart
+    </button>
+  )}
+</div>
 
     </div>
 

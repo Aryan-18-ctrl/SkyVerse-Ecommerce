@@ -8,7 +8,7 @@ const RelatedProducts = () => {
   const [relatedProduct, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const { singleProdData } = useContext(MyContext);
+  const { singleProdData,addToCart } = useContext(MyContext);
   const navigate = useNavigate();
 
   async function getRelatedProducts() {
@@ -158,6 +158,9 @@ const RelatedProducts = () => {
                 </button>
 
                 <button
+                onClick={(e)=>{
+                  addToCart(e,elem)
+                }}
                   className="
                     flex-1
                     rounded-xl

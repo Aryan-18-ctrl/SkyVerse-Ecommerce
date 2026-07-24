@@ -5,7 +5,6 @@ import Categories from '../components/Categories'
 
 const Home = () => {
 
-
   return (
 <div className='px-4 py-6 sm:px-6 sm:py-10 lg:px-10'>
   <div>
@@ -17,8 +16,6 @@ const Home = () => {
   <div>
     <Categories/>
   </div>
-
-
 </div>
   )
 }

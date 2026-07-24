@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ShoppingCart, LogOut, ShoppingBag } from "lucide-react";
 import { NavLink } from "react-router";
-
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import { MyContext } from "../Context/EcomContext";
 const Navbar = () => {
+let {isCartOpen,setIsCartOpen,cartItems}=useContext(MyContext)
+  let navigate=useNavigate()
   let currUser=JSON.parse(localStorage.getItem("currentUser"))
 
   return (
@@ -76,12 +80,23 @@ const Navbar = () => {
           </div>
 
           {/* Cart */}
-          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border  border border-white bg-card transition hover:border-primary hover:text-primary text-primary">
+        <div className="relative">
+            <button onClick={()=>{
+            setIsCartOpen(true)
+          }} className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border  border border-white bg-card transition hover:border-primary hover:text-primary text-primary">
             <ShoppingCart size={20} />
           </button>
+          <p className="absolute text-white -top-2 -right-2 bg-red-800 w-[18px] h-[18px] rounded-full flex justify-center items-center p-2 text-[14px]">{cartItems.length}</p>
+        </div>
 
           {/* Logout */}
-          <button className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border bg-card transition  text-white border-white   hover:border-red-500 hover:text-red-500  ">
+          <button onClick={()=>{
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser')
+toast.success("Logged out successfully!", {
+  icon: "👋",
+});navigate("/")
+          }} className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-border bg-card transition  text-white border-white   hover:border-red-500 hover:text-red-500  ">
             <LogOut size={20} />
           </button>
 

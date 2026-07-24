@@ -5,17 +5,20 @@ import Navbar from './components/Navbar'
 import { Toaster } from "react-hot-toast";
 
 import Home from '../src/Pages/Home'
-import AppRouter from './Pages/AppRouter';
+
+import AppRouter from './Routes/AppRouter'
+import PublicRoute from './Routes/PublicRoute';
+import Cart from './Pages/Cart';
 const App = () => {
   return (
 <div className='min-h-screen bg-bg'>
 {/* routees */}
 <AppRouter/>
 
+<Cart/>
 
 {/* toaster */}
 <Toaster position="top-right"  reverseOrder={false}/>
-
 </div>
 
   )

@@ -1,20 +1,26 @@
 import React from 'react'
 import {  Route,Routes } from 'react-router'
-import Home from './Home'
-import SignIn from './SignIn'
-import Signup from './Signup'
+import Home from '../Pages/Home'
+import SignIn from '../Pages/SignIn'
+import Signup from '../Pages/Signup'
 import MainRouter from './MainRouter'
 import Navbar from '../components/Navbar'
-import Shop from './Shop'
-import About from './About'
-import CategoryBased from './CategoryBased'
+import Shop from '../Pages/Shop'
+import About from '../Pages/About'
 import ProtectedRoute from './ProtectedRoute'
-import ProductDetail from './ProductDetail'
+import CategoryBased from '../Pages/CategoryBased'
+import ProductDetail from '../Pages/ProductDetail'
+import PublicRoute from './PublicRoute'
 const AppRouter = () => {
   return (
       <Routes>
+        <Route  element={<PublicRoute/>} >
+
     <Route path="/" element={<SignIn/>}/>
     <Route path="/register" element={<Signup/>}/>
+
+        </Route>
+
 
 <Route element={<ProtectedRoute/>}>
        <Route element={<MainRouter/>}>
@@ -27,6 +33,7 @@ const AppRouter = () => {
  </Route>
 </Route>
   </Routes>
+ 
   )
 }
 

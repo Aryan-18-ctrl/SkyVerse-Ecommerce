@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Star, ShoppingCart, Eye } from "lucide-react";
 import { useNavigate } from 'react-router';
+import { MyContext } from '../Context/EcomContext';
 const CategoryCard = ({elem}) => {
+
+  let {addToCart}=useContext(MyContext)
   let navigate=useNavigate()
 
 
@@ -138,6 +141,9 @@ navigate(`/details/${elem.id}`)
                 </button>
 
                 <button
+                onClick={(e)=>{
+                  addToCart(e,elem)
+                }}
                   className="
                     flex
                     flex-1
